@@ -92,41 +92,166 @@ Unit test files are colocated with their source (`bins.ts` / `bins.test.ts`) per
 **Interfaces:**
 - Produces: a runnable `npm run dev` (Electron window showing default React app) and `npm run build` script, which every later task builds on.
 
-- [ ] **Step 1: Scaffold via the official generator**
+> **Why hand-written, not a generator:** the obvious command,
+> `npm create @quick-start/electron@latest`, actually installs
+> `@quick-start/create-electron`, a *different, incompatible* scaffolding
+> tool (it builds on `vite-plugin-electron` with a `dist-electron/` output
+> and no `electron.vite.config.ts`) — verified by downloading and reading
+> its shipped source. It's also interactive-only with no non-interactive
+> flag, so it hangs waiting for stdin in an unattended shell. The layout
+> this plan actually needs (`electron.vite.config.ts`, `src/main`,
+> `src/preload`, `src/renderer`, `out/main/index.js` build output,
+> `ELECTRON_RENDERER_URL` dev env var) is the real `electron-vite` CLI
+> tool's convention (electron-vite.org, npm package `electron-vite`),
+> confirmed against its official `electron-vite-boilerplate` reference
+> repo on GitHub. Writing these files directly is deterministic, requires
+> no TTY, and matches every later task exactly.
 
-```bash
-npm create @quick-start/electron@latest . -- --template react-ts
-npm install
+- [ ] **Step 1: Write `package.json`**
+
+Do not hand-pin dependency versions — Step 7 installs the actual packages via
+`npm install`, which resolves and records current, mutually-compatible
+versions itself. A hand-picked version set risks silently pulling
+incompatible majors across `electron`/`vite`/`electron-vite`.
+
+```json
+{
+  "name": "adhd-wins-record",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A floating wins journal with celebratory animations",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build"
+  }
+}
 ```
 
-Answer prompts: project name `adhd-wins-record`, template `react-ts`. This produces the `src/main`, `src/preload`, `src/renderer` layout above plus working `electron.vite.config.ts` and `tsconfig*.json`.
+- [ ] **Step 2: Write `electron.vite.config.ts`**
 
-- [ ] **Step 2: Verify dev mode launches**
+```ts
+import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
+import react from '@vitejs/plugin-react'
 
-Run: `npm run dev`
-Expected: an Electron window opens showing the template's default "Powered by electron-vite" page. Close it.
+export default defineConfig({
+  main: {
+    plugins: [externalizeDepsPlugin()]
+  },
+  preload: {
+    plugins: [externalizeDepsPlugin()]
+  },
+  renderer: {
+    plugins: [react()]
+  }
+})
+```
 
-- [ ] **Step 3: Strip template boilerplate**
+- [ ] **Step 3: Write `tsconfig.json`, `tsconfig.node.json`, `tsconfig.web.json`**
 
-Delete the template's demo counter/update-checking code from `src/renderer/src/App.tsx` and `src/main/index.ts`, leaving:
+`tsconfig.json`:
+```json
+{
+  "files": [],
+  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.web.json" }]
+}
+```
+
+`tsconfig.node.json` (main + preload + shared):
+```json
+{
+  "compilerOptions": {
+    "composite": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": ["electron-vite/node"],
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "include": ["electron.vite.config.ts", "src/main/**/*", "src/preload/**/*", "src/shared/**/*"]
+}
+```
+
+`tsconfig.web.json` (renderer + shared):
+```json
+{
+  "compilerOptions": {
+    "composite": true,
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "include": ["src/renderer/src/**/*", "src/shared/**/*", "src/preload/**/*.d.ts"]
+}
+```
+
+- [ ] **Step 4: Write the main process entry point**
 
 `src/main/index.ts`:
 ```ts
 import { app, BrowserWindow } from 'electron'
+import { join } from 'node:path'
 
-app.whenReady().then(() => {
-  // Task 5 replaces this with createOverlayWindow()
+function createWindow(): void {
+  // Task 6 replaces this with createOverlayWindow()
   const win = new BrowserWindow({ width: 380, height: 560 })
   if (process.env['ELECTRON_RENDERER_URL']) {
     win.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
-    win.loadFile('out/renderer/index.html')
+    win.loadFile(join(__dirname, '../renderer/index.html'))
   }
-})
+}
+
+app.whenReady().then(createWindow)
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
+```
+
+- [ ] **Step 5: Write the preload script**
+
+`src/preload/index.ts`:
+```ts
+import { contextBridge } from 'electron'
+
+// Task 11 replaces this with the real window.api surface
+contextBridge.exposeInMainWorld('api', {})
+```
+
+- [ ] **Step 6: Write the renderer entry point and app shell**
+
+`src/renderer/index.html`:
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ADHD Wins</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+```
+
+`src/renderer/src/main.tsx`:
+```tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+)
 ```
 
 `src/renderer/src/App.tsx`:
@@ -136,12 +261,26 @@ export default function App(): JSX.Element {
 }
 ```
 
-- [ ] **Step 4: Verify dev mode still launches with the stripped app**
+- [ ] **Step 7: Install dependencies and verify dev mode launches**
 
-Run: `npm run dev`
-Expected: window opens showing "ADHD Wins" text, no console errors.
+```bash
+npm install react react-dom
+npm install -D electron electron-vite vite @vitejs/plugin-react typescript @types/react @types/react-dom
+npm run dev
+```
 
-- [ ] **Step 5: Commit**
+This records whatever current, mutually-compatible versions npm resolves
+directly into `package.json` — do not hand-edit version numbers afterward.
+Expected: an Electron window opens showing "ADHD Wins" text, no console errors. Close it.
+
+- [ ] **Step 8: Verify the production build works**
+
+```bash
+npm run build
+```
+Expected: succeeds, produces `out/main/index.js`, `out/preload/index.js`, `out/renderer/index.html`.
+
+- [ ] **Step 9: Commit**
 
 ```bash
 git add -A
