@@ -1,0 +1,7 @@
+node_modules/
+out/
+dist/
+.superpowers/
+
+# Claude Code local tooling config, not app source
+.claude/
