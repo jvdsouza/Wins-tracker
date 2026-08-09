@@ -2,7 +2,9 @@ This repository holds a project that aims to have a list of wins a user places i
 
 The application should look attractive and aim to set joyful, warm and happy emotions within the user. Animations should play whenever a win is added to celebrate the user achieving a win. Optionally allow the user to set the win value from 1-10, where 1 is a small win and 10 is a big win. The animations should appropriately follow the size of the win, seperated into bins of win ratings 1-3, 4-6, 7-9, and 10. Use party poppers for a win of 1 to space ship rocketing off with applauding hands for 10 to start with as an example. There should also be different animations for each different scale, preferrably 4-5 per bin. An emoji representing the animation/win value should sit next to the win in the list. The animations may have sounds, but allow the user to set the sound volume. 
 
-Use electron, react, and nodejs managed through vite for the application. For testing, use whatever vite provides. If there's no integration testing available out of the box from vite, use playwright. Before writing application code, write the tests first.
+Use electron, react, and nodejs managed through vite for the application. For testing, use whatever vite provides. If there's no integration testing available out of the box from vite, use playwright. Before writing application code, write the tests first.ode 
+
+Support windows OS first, without using windows specific APIs, then once the first version is complete, lets look to implement for MAC and Linux.
 
 When writing the code, write into the EPICS.md file first. Use this to record the work, splitting the work up into their "Epics" or what they aim to achieve as a title with a unique id as well for each Epic and each task to identify them. 
 
