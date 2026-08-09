@@ -2,7 +2,6 @@
 
 ## TO DO
 
-- **T1** (E1) Scaffold electron-vite + React + TypeScript project
 - **T2** (E1) Configure Vitest + React Testing Library for renderer unit tests
 - **T3** (E1) Configure Playwright for Electron e2e tests
 - **T4** (E1) Configure electron-builder for Windows packaging
@@ -34,4 +33,4 @@ _(none)_
 
 ## DONE
 
-_(none)_
+- **T1** (E1) Scaffold electron-vite + React + TypeScript project
