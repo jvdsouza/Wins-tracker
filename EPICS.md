@@ -7,7 +7,7 @@ Epic/Task IDs and status only.
 ## E1 — Project Scaffolding & Tooling
 
 - [x] **T1** Scaffold electron-vite + React + TypeScript project
-- [ ] **T2** Configure Vitest + React Testing Library for renderer unit tests
+- [x] **T2** Configure Vitest + React Testing Library for renderer unit tests
 - [ ] **T3** Configure Playwright for Electron e2e tests
 - [ ] **T4** Configure electron-builder for Windows packaging (cross-platform-ready)
 

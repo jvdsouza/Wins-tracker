@@ -2,7 +2,6 @@
 
 ## TO DO
 
-- **T2** (E1) Configure Vitest + React Testing Library for renderer unit tests
 - **T3** (E1) Configure Playwright for Electron e2e tests
 - **T4** (E1) Configure electron-builder for Windows packaging
 - **T5** (E2) `shared/ipc-contract.ts` — channel names and shared types
@@ -33,4 +32,5 @@ _(none)_
 
 ## DONE
 
+- **T2** (E1) Configure Vitest + React Testing Library for renderer unit tests
 - **T1** (E1) Scaffold electron-vite + React + TypeScript project
