@@ -7,7 +7,7 @@ Epic/Task IDs and status only.
 ## E4 — Wins UI
 
 - [x] **T12** `renderer/lib/bins.ts` — rating → bin → emoji/animation mapping
-- [ ] **T13** `renderer/lib/wins.ts` — newest-first sort
+- [x] **T13** `renderer/lib/wins.ts` — newest-first sort
 - [ ] **T14** `AddWinForm` component
 - [ ] **T15** `WinsList` / `WinItem` components
 - [ ] **T16** `App.tsx` wiring + warm/joyful theme
