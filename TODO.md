@@ -2,7 +2,6 @@
 
 ## TO DO
 
-- **T14** (E4) `AddWinForm` component
 - **T15** (E4) `WinsList` / `WinItem` components
 - **T16** (E4) `App.tsx` wiring + warm/joyful theme
 - **T17** (E5) `renderer/lib/sound.ts` — synthesized chime helpers
@@ -21,6 +20,7 @@ _(none)_
 
 ## DONE
 
+- **T14** (E4) `AddWinForm` component (2026-08-15)
 - **T13** (E4) `renderer/lib/wins.ts` — newest-first sort (2026-08-15)
 - **T12** (E4) `renderer/lib/bins.ts` — rating → bin → emoji/animation mapping (2026-08-15)
 
