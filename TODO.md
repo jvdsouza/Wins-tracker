@@ -2,7 +2,6 @@
 
 ## TO DO
 
-- **T19** (E5) `SettingsPanel` — shortcut display/edit + volume slider
 - **T20** (E6) Full Playwright e2e flow
 - **T21** (E6) Windows packaging verification
 
@@ -15,8 +14,5 @@ _(none)_
 _(none)_
 
 ## DONE
-
-- **T18** (E5) `Celebration.tsx` — animation trigger + per-bin variants
-- **T17** (E5) `renderer/lib/sound.ts` — synthesized chime helpers
 
 _(see COMPLETED.md for completed epics)_

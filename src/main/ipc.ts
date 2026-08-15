@@ -1,10 +1,11 @@
-import { ipcMain, BrowserWindow } from 'electron'
+import { ipcMain, BrowserWindow, globalShortcut } from 'electron'
 import { randomUUID } from 'node:crypto'
 import { store as realStore } from './store'
 import type { StoreSchema } from './store'
 import { IPC } from '../shared/ipc-contract'
 import type { Win, AddWinInput, Settings } from '../shared/ipc-contract'
 import { getEmojiForRating } from '../renderer/src/lib/bins'
+import { registerToggleShortcut } from './shortcut'
 
 interface Deps {
   store: Pick<typeof realStore, 'get' | 'set'>
@@ -55,5 +56,13 @@ export function registerIpcHandlers(win: BrowserWindow): void {
 
   ipcMain.handle(IPC.WINS_GET_ALL, () => getAllWins(deps))
   ipcMain.handle(IPC.SETTINGS_GET, () => getSettings(deps))
-  ipcMain.handle(IPC.SETTINGS_SET, (_event, patch: Partial<Settings>) => setSettings(patch, deps))
+  ipcMain.handle(IPC.SETTINGS_SET, (_event, patch: Partial<Settings>) => {
+    const previous = getSettings(deps)
+    const updated = setSettings(patch, deps)
+    if (patch.shortcut && patch.shortcut !== previous.shortcut) {
+      globalShortcut.unregister(previous.shortcut)
+      registerToggleShortcut(win, updated.shortcut)
+    }
+    return updated
+  })
 }

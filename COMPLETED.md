@@ -1,5 +1,11 @@
 # Completed Epics
 
+## E5 — Celebration Animations & Sound (COMPLETED 2026-08-15)
+
+- [x] **T17** `renderer/lib/sound.ts` — synthesized chime helpers
+- [x] **T18** `Celebration.tsx` — animation trigger + per-bin variants
+- [x] **T19** `SettingsPanel` — shortcut display/edit + volume slider
+
 ## E4 — Wins UI (COMPLETED 2026-08-15)
 
 - [x] **T12** `renderer/lib/bins.ts` — rating → bin → emoji/animation mapping
