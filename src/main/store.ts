@@ -1,12 +1,21 @@
 import Store from 'electron-store'
 import type { Bounds } from './window'
+import type { Win, Settings } from '../shared/ipc-contract'
+import { defaultAccelerator } from './shortcut'
 
 export interface StoreSchema {
   windowBounds: Bounds | null
+  wins: Win[]
+  settings: Settings
 }
 
 export const DEFAULT_STORE: StoreSchema = {
-  windowBounds: null
+  windowBounds: null,
+  wins: [],
+  settings: {
+    shortcut: defaultAccelerator(process.platform),
+    volume: 0.7
+  }
 }
 
 // electron-store/conf only consult `projectName` when they can't infer a
