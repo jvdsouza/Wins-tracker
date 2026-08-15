@@ -6,7 +6,7 @@ Epic/Task IDs and status only.
 
 ## E2 — Overlay Window & Global Shortcut
 
-- [ ] **T5** `shared/ipc-contract.ts` — channel names and shared types
+- [x] **T5** `shared/ipc-contract.ts` — channel names and shared types
 - [ ] **T6** `main/window.ts` — overlay window creation and default bounds
 - [ ] **T7** Window bounds persistence via electron-store
 - [ ] **T8** Global shortcut — OS-aware default, toggle registration

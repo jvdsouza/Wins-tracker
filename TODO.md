@@ -2,7 +2,6 @@
 
 ## TO DO
 
-- **T5** (E2) `shared/ipc-contract.ts` — channel names and shared types
 - **T6** (E2) `main/window.ts` — overlay window creation and default bounds
 - **T7** (E2) Window bounds persistence via electron-store
 - **T8** (E2) Global shortcut — OS-aware default, toggle registration
@@ -30,4 +29,4 @@ _(none)_
 
 ## DONE
 
-_(none)_
+- **T5** (E2) `shared/ipc-contract.ts` — channel names and shared types
