@@ -8,7 +8,7 @@ Epic/Task IDs and status only.
 
 - [x] **T1** Scaffold electron-vite + React + TypeScript project
 - [x] **T2** Configure Vitest + React Testing Library for renderer unit tests
-- [ ] **T3** Configure Playwright for Electron e2e tests
+- [x] **T3** Configure Playwright for Electron e2e tests
 - [ ] **T4** Configure electron-builder for Windows packaging (cross-platform-ready)
 
 ## E2 — Overlay Window & Global Shortcut

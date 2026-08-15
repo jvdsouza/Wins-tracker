@@ -2,7 +2,6 @@
 
 ## TO DO
 
-- **T3** (E1) Configure Playwright for Electron e2e tests
 - **T4** (E1) Configure electron-builder for Windows packaging
 - **T5** (E2) `shared/ipc-contract.ts` — channel names and shared types
 - **T6** (E2) `main/window.ts` — overlay window creation and default bounds
@@ -32,5 +31,6 @@ _(none)_
 
 ## DONE
 
+- **T3** (E1) Configure Playwright for Electron e2e tests
 - **T2** (E1) Configure Vitest + React Testing Library for renderer unit tests
 - **T1** (E1) Scaffold electron-vite + React + TypeScript project
