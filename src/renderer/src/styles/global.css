@@ -9,20 +9,6 @@
   font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-  /* The overlay window has no OS chrome, so the whole page must never grow
-     its own scrollbars — only .wins-list scrolls internally. */
-  overflow: hidden;
-}
-
 body {
   margin: 0;
   background: transparent;
@@ -39,25 +25,6 @@ body {
   gap: 16px;
   box-shadow: 0 8px 32px rgba(232, 103, 46, 0.18);
   color: var(--color-text);
-  /* Frameless window: there's no OS title bar to grab, so the shell itself
-     is the drag handle. Only the actual form controls below opt back out —
-     everything else (headings, gaps, the wins list background/rows,
-     settings labels) stays draggable, so there's a large, obvious grab
-     area instead of a thin strip around the edges. */
-  -webkit-app-region: drag;
-  -webkit-user-select: none;
-}
-
-/* The only elements that need clicks/drags for their own purpose (typing,
-   picking a rating, pressing a button, dragging the volume slider). Scoped
-   to the controls themselves rather than their containers, so surrounding
-   whitespace stays draggable. Wheel-scrolling .wins-list is unaffected by
-   app-region either way — it only intercepts click-drag, not the wheel. */
-input,
-select,
-button,
-textarea {
-  -webkit-app-region: no-drag;
 }
 
 h1 {
@@ -67,18 +34,12 @@ h1 {
 
 .add-win-form {
   display: flex;
-  flex-wrap: wrap;
   gap: 8px;
   align-items: center;
 }
 
-.add-win-form input,
-.add-win-form select {
-  min-width: 0;
-}
-
 .add-win-form input {
-  flex: 1 1 160px;
+  flex: 1;
   padding: 8px 12px;
   border-radius: 10px;
   border: 1px solid #f0d9c8;
@@ -101,12 +62,7 @@ h1 {
   list-style: none;
   margin: 0;
   padding: 0;
-  /* Owns the only scrollbar in the window: grows to fill the remaining
-     shell height, then scrolls vertically instead of the whole page. */
-  flex: 1;
-  min-height: 0;
   overflow-y: auto;
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -122,15 +78,8 @@ h1 {
   text-decoration: none; /* explicitly never struck-through */
 }
 
-.win-text {
-  flex: 1;
-  min-width: 0;
-  overflow-wrap: break-word;
-}
-
 .win-rating {
   margin-left: auto;
-  flex-shrink: 0;
   background: var(--color-primary);
   color: white;
   border-radius: 999px;

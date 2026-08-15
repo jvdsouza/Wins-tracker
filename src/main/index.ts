@@ -7,16 +7,6 @@ import { registerIpcHandlers } from './ipc'
 let mainWindow: ReturnType<typeof createOverlayWindow>
 
 app.whenReady().then(() => {
-  // Register with the OS to launch at login. Guarded by isPackaged: in dev
-  // (`electron-vite dev`, or Playwright launching `out/main/index.js`
-  // directly) process.execPath points at the bare Electron binary, not a
-  // real installed app, so registering it would create a broken/misleading
-  // login item. electron-builder's packaged app has a stable exe path, so
-  // this only takes effect for real installs.
-  if (app.isPackaged) {
-    app.setLoginItemSettings({ openAtLogin: true, path: process.execPath })
-  }
-
   mainWindow = createOverlayWindow(store.get('windowBounds') ?? undefined)
   mainWindow.show()
   registerIpcHandlers(mainWindow)
