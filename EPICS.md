@@ -4,13 +4,6 @@ Full implementation detail (file paths, code, tests) lives in
 `docs/superpowers/plans/2026-08-05-adhd-wins-overlay.md`. This file tracks
 Epic/Task IDs and status only.
 
-## E1 — Project Scaffolding & Tooling
-
-- [x] **T1** Scaffold electron-vite + React + TypeScript project
-- [x] **T2** Configure Vitest + React Testing Library for renderer unit tests
-- [x] **T3** Configure Playwright for Electron e2e tests
-- [ ] **T4** Configure electron-builder for Windows packaging (cross-platform-ready)
-
 ## E2 — Overlay Window & Global Shortcut
 
 - [ ] **T5** `shared/ipc-contract.ts` — channel names and shared types
