@@ -7,7 +7,7 @@ Epic/Task IDs and status only.
 ## E3 — Data Layer (Wins & Settings Persistence)
 
 - [x] **T9** `main/store.ts` — full schema (wins + settings)
-- [ ] **T10** `main/ipc.ts` — IPC handlers for wins and settings
+- [x] **T10** `main/ipc.ts` — IPC handlers for wins and settings
 - [ ] **T11** `preload/index.ts` — contextBridge API surface
 
 ## E4 — Wins UI

@@ -2,12 +2,14 @@ import { app, globalShortcut } from 'electron'
 import { createOverlayWindow } from './window'
 import { store } from './store'
 import { defaultAccelerator, registerToggleShortcut, toggleWindow } from './shortcut'
+import { registerIpcHandlers } from './ipc'
 
 let mainWindow: ReturnType<typeof createOverlayWindow>
 
 app.whenReady().then(() => {
   mainWindow = createOverlayWindow(store.get('windowBounds') ?? undefined)
   mainWindow.show()
+  registerIpcHandlers(mainWindow)
 
   const accelerator = defaultAccelerator(process.platform)
   registerToggleShortcut(mainWindow, accelerator)
