@@ -1,6 +1,7 @@
 node_modules/
 out/
 dist/
+test-results/
 .superpowers/
 
 # Claude Code local tooling config, not app source
