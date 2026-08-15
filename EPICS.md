@@ -6,5 +6,5 @@ Epic/Task IDs and status only.
 
 ## E6 — Integration Testing & Packaging
 
-- [ ] **T20** Full Playwright e2e flow
+- [x] **T20** Full Playwright e2e flow
 - [ ] **T21** Windows packaging verification
