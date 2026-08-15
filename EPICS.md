@@ -4,13 +4,6 @@ Full implementation detail (file paths, code, tests) lives in
 `docs/superpowers/plans/2026-08-05-adhd-wins-overlay.md`. This file tracks
 Epic/Task IDs and status only.
 
-## E2 — Overlay Window & Global Shortcut
-
-- [x] **T5** `shared/ipc-contract.ts` — channel names and shared types
-- [x] **T6** `main/window.ts` — overlay window creation and default bounds
-- [x] **T7** Window bounds persistence via electron-store
-- [ ] **T8** Global shortcut — OS-aware default, toggle registration
-
 ## E3 — Data Layer (Wins & Settings Persistence)
 
 - [ ] **T9** `main/store.ts` — full schema (wins + settings)

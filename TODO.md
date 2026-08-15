@@ -2,7 +2,6 @@
 
 ## TO DO
 
-- **T8** (E2) Global shortcut — OS-aware default, toggle registration
 - **T9** (E3) `main/store.ts` — full schema (wins + settings)
 - **T10** (E3) `main/ipc.ts` — IPC handlers for wins and settings
 - **T11** (E3) `preload/index.ts` — contextBridge API surface
@@ -27,6 +26,4 @@ _(none)_
 
 ## DONE
 
-- **T7** (E2) Window bounds persistence via electron-store
-- **T6** (E2) `main/window.ts` — overlay window creation and default bounds
-- **T5** (E2) `shared/ipc-contract.ts` — channel names and shared types
+_(none)_

@@ -1,12 +1,28 @@
-import { app } from 'electron'
+import { app, globalShortcut } from 'electron'
 import { createOverlayWindow } from './window'
 import { store } from './store'
+import { defaultAccelerator, registerToggleShortcut, toggleWindow } from './shortcut'
+
+let mainWindow: ReturnType<typeof createOverlayWindow>
 
 app.whenReady().then(() => {
-  const win = createOverlayWindow(store.get('windowBounds') ?? undefined)
-  win.show()
+  mainWindow = createOverlayWindow(store.get('windowBounds') ?? undefined)
+  mainWindow.show()
+
+  const accelerator = defaultAccelerator(process.platform)
+  registerToggleShortcut(mainWindow, accelerator)
+})
+
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll()
 })
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
+
+// Test-only hook: Playwright's electronApp.evaluate() calls this directly
+// since simulating a real OS-level hotkey isn't feasible in CI.
+export function __testToggleWindow(): void {
+  toggleWindow(mainWindow)
+}
