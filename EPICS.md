@@ -9,7 +9,7 @@ Epic/Task IDs and status only.
 - [x] **T12** `renderer/lib/bins.ts` — rating → bin → emoji/animation mapping
 - [x] **T13** `renderer/lib/wins.ts` — newest-first sort
 - [x] **T14** `AddWinForm` component
-- [ ] **T15** `WinsList` / `WinItem` components
+- [x] **T15** `WinsList` / `WinItem` components
 - [ ] **T16** `App.tsx` wiring + warm/joyful theme
 
 ## E5 — Celebration Animations & Sound
