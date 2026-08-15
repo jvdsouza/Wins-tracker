@@ -1,5 +1,6 @@
 import { BrowserWindow } from 'electron'
 import { join } from 'node:path'
+import { store } from './store'
 
 export interface Bounds {
   x: number
@@ -62,6 +63,12 @@ export function createOverlayWindow(savedBounds?: Bounds): BrowserWindow {
   } else {
     win.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  const persistBounds = (): void => {
+    store.set('windowBounds', win.getBounds())
+  }
+  win.on('moved', persistBounds)
+  win.on('resized', persistBounds)
 
   return win
 }

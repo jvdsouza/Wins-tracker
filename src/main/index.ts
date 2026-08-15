@@ -1,8 +1,9 @@
 import { app } from 'electron'
 import { createOverlayWindow } from './window'
+import { store } from './store'
 
 app.whenReady().then(() => {
-  const win = createOverlayWindow()
+  const win = createOverlayWindow(store.get('windowBounds') ?? undefined)
   win.show()
 })
 

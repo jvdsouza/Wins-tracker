@@ -8,7 +8,7 @@ Epic/Task IDs and status only.
 
 - [x] **T5** `shared/ipc-contract.ts` — channel names and shared types
 - [x] **T6** `main/window.ts` — overlay window creation and default bounds
-- [ ] **T7** Window bounds persistence via electron-store
+- [x] **T7** Window bounds persistence via electron-store
 - [ ] **T8** Global shortcut — OS-aware default, toggle registration
 
 ## E3 — Data Layer (Wins & Settings Persistence)
