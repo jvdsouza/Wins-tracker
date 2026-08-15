@@ -6,7 +6,7 @@ Epic/Task IDs and status only.
 
 ## E5 — Celebration Animations & Sound
 
-- [ ] **T17** `renderer/lib/sound.ts` — synthesized chime helpers
+- [x] **T17** `renderer/lib/sound.ts` — synthesized chime helpers
 - [ ] **T18** `Celebration.tsx` — animation trigger + per-bin variants
 - [ ] **T19** `SettingsPanel` — shortcut display/edit + volume slider
 
