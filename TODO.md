@@ -2,7 +2,6 @@
 
 ## TO DO
 
-- **T6** (E2) `main/window.ts` — overlay window creation and default bounds
 - **T7** (E2) Window bounds persistence via electron-store
 - **T8** (E2) Global shortcut — OS-aware default, toggle registration
 - **T9** (E3) `main/store.ts` — full schema (wins + settings)
@@ -29,4 +28,5 @@ _(none)_
 
 ## DONE
 
+- **T6** (E2) `main/window.ts` — overlay window creation and default bounds
 - **T5** (E2) `shared/ipc-contract.ts` — channel names and shared types
