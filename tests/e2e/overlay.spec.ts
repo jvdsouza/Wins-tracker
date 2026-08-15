@@ -16,3 +16,25 @@ test('toggling the shortcut hides and shows the overlay window', async () => {
 
   await app.close()
 })
+
+test('__testToggleWindow (the registered-shortcut code path) flips window visibility', async () => {
+  const app = await electron.launch({ args: ['out/main/index.js'] })
+  await app.firstWindow()
+
+  // index.ts attaches __testToggleWindow to globalThis specifically so it's
+  // reachable here: app.evaluate() runs pageFunction in the main process but
+  // in a scope with no `require`/module access, only shared globals.
+  const isVisibleAfterFirstToggle = await app.evaluate(({ BrowserWindow }) => {
+    ;(globalThis as unknown as { __testToggleWindow: () => void }).__testToggleWindow()
+    return BrowserWindow.getAllWindows()[0].isVisible()
+  })
+  expect(isVisibleAfterFirstToggle).toBe(false)
+
+  const isVisibleAfterSecondToggle = await app.evaluate(({ BrowserWindow }) => {
+    ;(globalThis as unknown as { __testToggleWindow: () => void }).__testToggleWindow()
+    return BrowserWindow.getAllWindows()[0].isVisible()
+  })
+  expect(isVisibleAfterSecondToggle).toBe(true)
+
+  await app.close()
+})
