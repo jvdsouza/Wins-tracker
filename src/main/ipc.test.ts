@@ -27,16 +27,12 @@ describe('addWin', () => {
 
     const result = addWin({ text: 'Shipped the feature', rating: 8 }, deps)
 
-    // NOTE: emoji is '✨' here (not '👏' as the real bins.ts would return for
-    // rating 8) because src/renderer/src/lib/bins.ts is currently a Task 12
-    // stub (getEmojiForRating always returns '✨'). No change needed here
-    // once Task 12 implements the real mapping and overwrites the stub.
     expect(result).toEqual({
       id: 'fixed-id',
       text: 'Shipped the feature',
       rating: 8,
       createdAt: '2026-08-05T00:00:00.000Z',
-      emoji: '✨'
+      emoji: '👏'
     })
     expect(fakeStore.set).toHaveBeenCalledWith('wins', [result])
   })

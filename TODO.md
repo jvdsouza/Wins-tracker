@@ -2,7 +2,6 @@
 
 ## TO DO
 
-- **T12** (E4) `renderer/lib/bins.ts` — rating → bin → emoji/animation mapping
 - **T13** (E4) `renderer/lib/wins.ts` — newest-first sort
 - **T14** (E4) `AddWinForm` component
 - **T15** (E4) `WinsList` / `WinItem` components
@@ -22,5 +21,7 @@ _(none)_
 _(none)_
 
 ## DONE
+
+- **T12** (E4) `renderer/lib/bins.ts` — rating → bin → emoji/animation mapping (2026-08-15)
 
 _(see COMPLETED.md for completed epics)_
