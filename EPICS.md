@@ -4,12 +4,6 @@ Full implementation detail (file paths, code, tests) lives in
 `docs/superpowers/plans/2026-08-05-adhd-wins-overlay.md`. This file tracks
 Epic/Task IDs and status only.
 
-## E3 — Data Layer (Wins & Settings Persistence)
-
-- [x] **T9** `main/store.ts` — full schema (wins + settings)
-- [x] **T10** `main/ipc.ts` — IPC handlers for wins and settings
-- [ ] **T11** `preload/index.ts` — contextBridge API surface
-
 ## E4 — Wins UI
 
 - [ ] **T12** `renderer/lib/bins.ts` — rating → bin → emoji/animation mapping

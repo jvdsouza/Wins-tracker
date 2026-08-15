@@ -1,5 +1,11 @@
 # Completed Epics
 
+## E3 — Data Layer (Wins & Settings Persistence) (COMPLETED 2026-08-15)
+
+- [x] **T9** `main/store.ts` — full schema (wins + settings)
+- [x] **T10** `main/ipc.ts` — IPC handlers for wins and settings
+- [x] **T11** `preload/index.ts` — contextBridge API surface
+
 ## E2 — Overlay Window & Global Shortcut (COMPLETED 2026-08-15)
 
 - [x] **T5** `shared/ipc-contract.ts` — channel names and shared types

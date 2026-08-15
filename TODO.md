@@ -2,7 +2,6 @@
 
 ## TO DO
 
-- **T11** (E3) `preload/index.ts` — contextBridge API surface
 - **T12** (E4) `renderer/lib/bins.ts` — rating → bin → emoji/animation mapping
 - **T13** (E4) `renderer/lib/wins.ts` — newest-first sort
 - **T14** (E4) `AddWinForm` component
@@ -24,5 +23,4 @@ _(none)_
 
 ## DONE
 
-- **T10** (E3) `main/ipc.ts` — IPC handlers for wins and settings
-- **T9** (E3) `main/store.ts` — full schema (wins + settings)
+_(see COMPLETED.md for completed epics)_
