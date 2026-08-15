@@ -2,7 +2,6 @@
 
 ## TO DO
 
-- **T9** (E3) `main/store.ts` — full schema (wins + settings)
 - **T10** (E3) `main/ipc.ts` — IPC handlers for wins and settings
 - **T11** (E3) `preload/index.ts` — contextBridge API surface
 - **T12** (E4) `renderer/lib/bins.ts` — rating → bin → emoji/animation mapping
@@ -26,4 +25,4 @@ _(none)_
 
 ## DONE
 
-_(none)_
+- **T9** (E3) `main/store.ts` — full schema (wins + settings)
