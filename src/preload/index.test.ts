@@ -1,4 +1,12 @@
 import { describe, it, expect, vi } from 'vitest'
+
+vi.mock('electron', () => ({
+  contextBridge: {
+    exposeInMainWorld: vi.fn()
+  },
+  ipcRenderer: {}
+}))
+
 import { buildApi } from './index'
 
 describe('buildApi', () => {

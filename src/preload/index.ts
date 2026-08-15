@@ -1,4 +1,4 @@
-import type { IpcRenderer } from 'electron'
+import { contextBridge, ipcRenderer, IpcRenderer } from 'electron'
 import { IPC } from '../shared/ipc-contract'
 import type { AddWinInput, Win, Settings } from '../shared/ipc-contract'
 
@@ -22,10 +22,4 @@ export function buildApi(renderer: MinimalIpcRenderer) {
 
 export type Api = ReturnType<typeof buildApi>
 
-// Expose API in Electron preload process
-try {
-  const { contextBridge, ipcRenderer } = require('electron')
-  contextBridge.exposeInMainWorld('api', buildApi(ipcRenderer))
-} catch {
-  // Running in test environment where electron is not available
-}
+contextBridge.exposeInMainWorld('api', buildApi(ipcRenderer))
