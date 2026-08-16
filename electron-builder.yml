@@ -1,0 +1,16 @@
+appId: com.adhdwins.app
+productName: ADHD Wins
+directories:
+  output: dist
+  buildResources: build
+files:
+  - out/**/*
+  - package.json
+win:
+  target: nsis
+  # mac/linux targets are intentionally omitted for v1 — adding them later
+  # is a config-only change (mac: dmg/zip, linux: AppImage/deb), see
+  # docs/superpowers/plans/2026-08-05-adhd-wins-overlay.md Global Constraints.
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
