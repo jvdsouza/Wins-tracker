@@ -3,8 +3,10 @@ import { createOverlayWindow } from './window'
 import { store } from './store'
 import { defaultAccelerator, registerToggleShortcut, toggleWindow } from './shortcut'
 import { registerIpcHandlers } from './ipc'
+import { createTray } from './tray'
 
 let mainWindow: ReturnType<typeof createOverlayWindow>
+let tray: ReturnType<typeof createTray>
 
 app.whenReady().then(() => {
   // Register with the OS to launch at login. Guarded by isPackaged: in dev
@@ -20,6 +22,7 @@ app.whenReady().then(() => {
   mainWindow = createOverlayWindow(store.get('windowBounds') ?? undefined)
   mainWindow.show()
   registerIpcHandlers(mainWindow)
+  tray = createTray(mainWindow)
 
   const accelerator = defaultAccelerator(process.platform)
   registerToggleShortcut(mainWindow, accelerator)
@@ -42,3 +45,11 @@ export function __testToggleWindow(): void {
   toggleWindow(mainWindow)
 }
 ;(globalThis as unknown as { __testToggleWindow: () => void }).__testToggleWindow = __testToggleWindow
+
+// Test-only hook, same rationale as __testToggleWindow above: Playwright's
+// evaluate() can't easily assert an OS tray icon is present, so it checks
+// this instead.
+export function __testTrayExists(): boolean {
+  return tray !== undefined && !tray.isDestroyed()
+}
+;(globalThis as unknown as { __testTrayExists: () => boolean }).__testTrayExists = __testTrayExists

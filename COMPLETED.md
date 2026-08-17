@@ -1,5 +1,11 @@
 # Completed Epics
 
+## E8 — System Tray Icon (COMPLETED 2026-08-17)
+
+- [x] **T27** `main/tray.ts` — `createTray`/`buildTrayMenuTemplate` with placeholder icon, tooltip, Show/Hide + Quit menu
+- [x] **T28** `main/index.ts` wiring — create tray on startup, `__testTrayExists` test hook
+- [x] **T29** Playwright e2e coverage — tray is created on launch
+
 ## E7 — Win Editing (Update & Delete) (COMPLETED 2026-08-17)
 
 - [x] **T22** `main/ipc.ts` — `updateWin`/`deleteWin` + `wins:update`/`wins:delete` IPC handlers

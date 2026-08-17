@@ -17,6 +17,18 @@ test('toggling the shortcut hides and shows the overlay window', async () => {
   await app.close()
 })
 
+test('a tray icon is created so the running app is visible in the notification area', async () => {
+  const app = await electron.launch({ args: ['out/main/index.js'] })
+  await app.firstWindow()
+
+  const trayExists = await app.evaluate(() => {
+    return (globalThis as unknown as { __testTrayExists: () => boolean }).__testTrayExists()
+  })
+  expect(trayExists).toBe(true)
+
+  await app.close()
+})
+
 test('__testToggleWindow (the registered-shortcut code path) flips window visibility', async () => {
   const app = await electron.launch({ args: ['out/main/index.js'] })
   await app.firstWindow()
