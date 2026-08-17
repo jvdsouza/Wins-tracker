@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { WinsList } from './WinsList'
 import type { Win } from '../../../shared/ipc-contract'
 
@@ -10,7 +11,7 @@ const wins: Win[] = [
 
 describe('WinsList', () => {
   it('renders the newest win first, with its emoji and rating, and no strikethrough styling', () => {
-    render(<WinsList wins={wins} />)
+    render(<WinsList wins={wins} onUpdate={() => {}} onDelete={() => {}} />)
     const items = screen.getAllByRole('listitem')
 
     expect(items).toHaveLength(2)
@@ -25,7 +26,18 @@ describe('WinsList', () => {
   })
 
   it('renders a friendly empty state with no wins yet', () => {
-    render(<WinsList wins={[]} />)
+    render(<WinsList wins={[]} onUpdate={() => {}} onDelete={() => {}} />)
     expect(screen.getByText(/no wins yet/i)).toBeInTheDocument()
+  })
+
+  it('forwards edits on a win through to onUpdate with that win\'s id', async () => {
+    const onUpdate = vi.fn()
+    const user = userEvent.setup()
+    render(<WinsList wins={wins} onUpdate={onUpdate} onDelete={vi.fn()} />)
+
+    await user.click(screen.getByText('newer win'))
+    await user.type(screen.getByDisplayValue('newer win'), ' updated{Enter}')
+
+    expect(onUpdate).toHaveBeenCalledWith('2', { text: 'newer win updated' })
   })
 })

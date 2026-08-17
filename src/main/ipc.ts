@@ -30,6 +30,34 @@ export function addWin(input: AddWinInput, deps: Deps): Win {
   return win
 }
 
+export function updateWin(
+  id: string,
+  patch: Partial<AddWinInput>,
+  deps: Pick<Deps, 'store'>
+): Win | undefined {
+  const wins = deps.store.get('wins') as Win[]
+  const index = wins.findIndex((w) => w.id === id)
+  if (index === -1) return undefined
+
+  const updated: Win = {
+    ...wins[index],
+    ...patch,
+    emoji: patch.rating !== undefined ? getEmojiForRating(patch.rating) : wins[index].emoji
+  }
+  const next = [...wins]
+  next[index] = updated
+  deps.store.set('wins', next)
+  return updated
+}
+
+export function deleteWin(id: string, deps: Pick<Deps, 'store'>): void {
+  const wins = deps.store.get('wins') as Win[]
+  deps.store.set(
+    'wins',
+    wins.filter((w) => w.id !== id)
+  )
+}
+
 export function getAllWins(deps: Pick<Deps, 'store'>): Win[] {
   return deps.store.get('wins') as Win[]
 }
@@ -52,6 +80,17 @@ export function registerIpcHandlers(win: BrowserWindow): void {
     const created = addWin(input, deps)
     win.webContents.send(IPC.WINS_UPDATED, getAllWins(deps))
     return created
+  })
+
+  ipcMain.handle(IPC.WINS_UPDATE, (_event, id: string, patch: Partial<AddWinInput>) => {
+    const updated = updateWin(id, patch, deps)
+    win.webContents.send(IPC.WINS_UPDATED, getAllWins(deps))
+    return updated
+  })
+
+  ipcMain.handle(IPC.WINS_DELETE, (_event, id: string) => {
+    deleteWin(id, deps)
+    win.webContents.send(IPC.WINS_UPDATED, getAllWins(deps))
   })
 
   ipcMain.handle(IPC.WINS_GET_ALL, () => getAllWins(deps))

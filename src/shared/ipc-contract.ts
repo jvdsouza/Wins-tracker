@@ -1,5 +1,7 @@
 export const IPC = {
   WINS_ADD: 'wins:add',
+  WINS_UPDATE: 'wins:update',
+  WINS_DELETE: 'wins:delete',
   WINS_GET_ALL: 'wins:getAll',
   WINS_UPDATED: 'wins:updated',
   SETTINGS_GET: 'settings:get',

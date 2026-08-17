@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { addWin, getAllWins, getSettings, setSettings } from './ipc'
+import { addWin, getAllWins, getSettings, setSettings, updateWin, deleteWin } from './ipc'
 import type { StoreSchema } from './store'
 
 function makeFakeStore(initial: StoreSchema) {
@@ -43,6 +43,52 @@ describe('getAllWins', () => {
     const wins = [{ id: '1', text: 'a', rating: null, createdAt: 'x', emoji: '✨' }]
     const fakeStore = makeFakeStore({ windowBounds: null, wins, settings: { shortcut: 'Alt+Shift+W', volume: 0.7 } })
     expect(getAllWins({ store: fakeStore as any })).toEqual(wins)
+  })
+})
+
+describe('updateWin', () => {
+  it('merges a text patch into the matching win and leaves its rating/emoji alone', () => {
+    const wins = [
+      { id: '1', text: 'old text', rating: 5, createdAt: 'x', emoji: '🎊' },
+      { id: '2', text: 'other', rating: null, createdAt: 'y', emoji: '✨' }
+    ]
+    const fakeStore = makeFakeStore({ windowBounds: null, wins, settings: { shortcut: 'Alt+Shift+W', volume: 0.7 } })
+
+    const result = updateWin('1', { text: 'new text' }, { store: fakeStore as any })
+
+    expect(result).toEqual({ id: '1', text: 'new text', rating: 5, createdAt: 'x', emoji: '🎊' })
+    expect(fakeStore.set).toHaveBeenCalledWith('wins', [
+      { id: '1', text: 'new text', rating: 5, createdAt: 'x', emoji: '🎊' },
+      wins[1]
+    ])
+  })
+
+  it('recomputes the emoji when the rating changes', () => {
+    const wins = [{ id: '1', text: 'old text', rating: 2, createdAt: 'x', emoji: '🎉' }]
+    const fakeStore = makeFakeStore({ windowBounds: null, wins, settings: { shortcut: 'Alt+Shift+W', volume: 0.7 } })
+
+    const result = updateWin('1', { rating: 10 }, { store: fakeStore as any })
+
+    expect(result).toEqual({ id: '1', text: 'old text', rating: 10, createdAt: 'x', emoji: '🚀' })
+  })
+
+  it('returns undefined when no win matches the id', () => {
+    const fakeStore = makeFakeStore({ windowBounds: null, wins: [], settings: { shortcut: 'Alt+Shift+W', volume: 0.7 } })
+    expect(updateWin('missing', { text: 'x' }, { store: fakeStore as any })).toBeUndefined()
+  })
+})
+
+describe('deleteWin', () => {
+  it('removes the matching win and leaves the rest untouched', () => {
+    const wins = [
+      { id: '1', text: 'a', rating: null, createdAt: 'x', emoji: '✨' },
+      { id: '2', text: 'b', rating: 3, createdAt: 'y', emoji: '🎉' }
+    ]
+    const fakeStore = makeFakeStore({ windowBounds: null, wins, settings: { shortcut: 'Alt+Shift+W', volume: 0.7 } })
+
+    deleteWin('1', { store: fakeStore as any })
+
+    expect(fakeStore.set).toHaveBeenCalledWith('wins', [wins[1]])
   })
 })
 

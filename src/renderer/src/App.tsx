@@ -25,6 +25,17 @@ export default function App(): JSX.Element {
     setCelebrating(created)
   }
 
+  async function handleUpdate(id: string, patch: Partial<AddWinInput>): Promise<void> {
+    const updated = await window.api.wins.update(id, patch)
+    if (updated && patch.rating !== undefined) {
+      setCelebrating(updated)
+    }
+  }
+
+  async function handleDelete(id: string): Promise<void> {
+    await window.api.wins.delete(id)
+  }
+
   async function handleSettingsChange(patch: Partial<Settings>): Promise<void> {
     const updated = await window.api.settings.set(patch)
     setVolume(updated.volume)
@@ -35,7 +46,7 @@ export default function App(): JSX.Element {
     <div className="app-shell">
       <h1>Your Wins</h1>
       <AddWinForm onAdd={handleAdd} />
-      <WinsList wins={wins} />
+      <WinsList wins={wins} onUpdate={handleUpdate} onDelete={handleDelete} />
       <SettingsPanel settings={{ shortcut, volume }} onChange={handleSettingsChange} />
       {celebrating && (
         <Celebration win={celebrating} volume={volume} onDone={() => setCelebrating(null)} />

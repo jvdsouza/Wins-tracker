@@ -1,5 +1,13 @@
 # Completed Epics
 
+## E7 — Win Editing (Update & Delete) (COMPLETED 2026-08-17)
+
+- [x] **T22** `main/ipc.ts` — `updateWin`/`deleteWin` + `wins:update`/`wins:delete` IPC handlers
+- [x] **T23** `preload/index.ts` — expose `wins.update`/`wins.delete`
+- [x] **T24** `WinItem` — click-to-edit text, click-to-edit rating picker, delete button (edit mode only)
+- [x] **T25** `App.tsx` wiring — replay celebration when a rating edit changes the value
+- [x] **T26** Playwright e2e coverage — rating-change replays celebration, text edit doesn't, delete removes the row
+
 ## E5 — Celebration Animations & Sound (COMPLETED 2026-08-15)
 
 - [x] **T17** `renderer/lib/sound.ts` — synthesized chime helpers

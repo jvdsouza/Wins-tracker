@@ -8,6 +8,9 @@ export function buildApi(renderer: MinimalIpcRenderer) {
   return {
     wins: {
       add: (input: AddWinInput): Promise<Win> => renderer.invoke(IPC.WINS_ADD, input),
+      update: (id: string, patch: Partial<AddWinInput>): Promise<Win | undefined> =>
+        renderer.invoke(IPC.WINS_UPDATE, id, patch),
+      delete: (id: string): Promise<void> => renderer.invoke(IPC.WINS_DELETE, id),
       getAll: (): Promise<Win[]> => renderer.invoke(IPC.WINS_GET_ALL),
       onUpdated: (callback: (wins: Win[]) => void): void => {
         renderer.on(IPC.WINS_UPDATED, (_event, wins: Win[]) => callback(wins))
