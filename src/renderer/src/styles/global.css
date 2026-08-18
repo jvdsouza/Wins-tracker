@@ -56,7 +56,9 @@ body {
 input,
 select,
 button,
-textarea {
+textarea,
+.win-text,
+.win-rating {
   -webkit-app-region: no-drag;
 }
 
