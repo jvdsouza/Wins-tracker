@@ -1,4 +1,4 @@
-# ADHD Wins
+# Wins Recorder
 
 A floating "wins" journal for your desktop. Summon it anywhere with a global
 hotkey, log a win (optionally rated 1–10 for how big it felt), and watch it
@@ -24,21 +24,20 @@ npm install
 npm run dev
 ```
 
-**Production build** (compiles main/preload/renderer into `out/`):
-
-```bash
-npm run build
-```
-
-**Windows installer** (builds, then packages a Windows installer into `dist/`):
+**Windows installer** (compiles main/preload/renderer, then packages a
+Windows installer into `dist/`):
 
 ```bash
 npm run package:win
 ```
 
 That produces an NSIS installer (`.exe`) under `dist/`. Run it to install
-"ADHD Wins" like any other Windows app, or just launch `out/main/index.js`
-via `npm run build` output directly during development.
+"Wins Recorder" like any other Windows app. There's no standalone "just
+compile" script — `npm run dev` for iterating, `npm run package:win` for a
+real installable build. (Running `dev`/`package:win` doesn't stop an
+already-installed, already-running copy — it auto-starts at login and lives
+in the system tray, so quit it via the tray icon before testing a fresh
+build.)
 
 ## Usage
 

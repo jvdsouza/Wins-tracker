@@ -16,7 +16,7 @@ export function buildTrayMenuTemplate(win: BrowserWindow): MenuItemConstructorOp
 
 export function createTray(win: BrowserWindow): Tray {
   const tray = new Tray(nativeImage.createFromDataURL(TRAY_ICON_DATA_URL))
-  tray.setToolTip('ADHD Wins')
+  tray.setToolTip('Wins Recorder')
   tray.setContextMenu(Menu.buildFromTemplate(buildTrayMenuTemplate(win)))
   return tray
 }
