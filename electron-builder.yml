@@ -18,3 +18,7 @@ publish:
   provider: github
   owner: jvdsouza
   repo: Wins-tracker
+  # electron-builder defaults to publishing a draft that needs a manual
+  # click on GitHub before it's public. Auto-publish instead so a tag push
+  # alone makes the release available.
+  releaseType: release
