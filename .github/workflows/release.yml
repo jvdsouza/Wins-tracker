@@ -25,6 +25,16 @@ jobs:
 
       - run: npm run test:unit
 
+      # electron-builder's GitHub publisher races itself when uploading
+      # multiple artifacts (the installer + its .blockmap) to a release that
+      # doesn't exist yet: both uploads try to create the release at once,
+      # one wins and the other 422s on "already_exists", failing the whole
+      # step even though the build succeeded. Pre-creating the release here
+      # means electron-builder finds it already exists and just uploads.
+      - run: gh release create "${{ github.ref_name }}" --title "${{ github.ref_name }}" --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - run: npm run package:win -- --publish always
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
